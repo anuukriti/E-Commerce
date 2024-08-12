@@ -1,31 +1,43 @@
-import { useContext } from "react";
-import ProductCard from "../card/ProductCard";
-import MyContext from "../../context/MyContext";
-import Loader from "../loader/Loader";
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { addToCart } from '../../redux/CartSlice'
+import { toast } from 'react-hot-toast'
 
-const AllProduct = () => {
-    const {loading, getAllProduct} = useContext(MyContext);
-    // console.log("all products : ",getAllProduct);
+function ProductCard({ key, title, price, image, item_id, item }) {
+    const navigate = useNavigate();
+
+    const cartItems = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
+
+    const addCart = (item) => {
+        dispatch(addToCart(item));  // Uncomment this line to enable adding to cart
+        toast.success("Added to cart")
+    }
 
     return (
-        <div className="mt-8">
-            {/* Heading  */}
-            <div className="">
-                <h1 className="text-center mb-5 text-2xl font-semibold">Bestselling Products</h1>
+        <div key={key} className="rounded-md shadow-md w-[150px] md:w-[280px] justify-between">
+            <img
+                onClick={() => navigate(`/productInfo/${item_id}`)}
+                src={image}
+                alt={title}
+                className="w-full rounded-t-md object-cover cursor-pointer h-[180px] md:h-[280px]"
+            />
+            <div className="p-2 h-auto">
+                <div>
+                    <h1 className="items-center text-[12px] md:text-md">{title}</h1>
+                    <h1 className="items-center font-semibold text-sm md:text-lg">Rs {price}</h1>
+                </div>
+                <button
+                    type="button"
+                    onClick={() => addCart(item)}
+                    className="mt-2 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                >
+                    Add to Cart
+                </button>
             </div>
-
-            {/* main  */}
-            <section className="text-gray-600 body-font md:mx-10">
-                    <div className="flex flex-wrap md:gap-10 justify-center">
-                    {loading && <Loader />}
-                        {getAllProduct.slice(0,20).map((item, index) => (
-                            
-                            <ProductCard key={index} image={item.productImgUrl} price={item.price} title={item.title} item_id={item.id} item={item} />
-                        ))}
-                    </div>
-            </section>
         </div>
-    );
+    )
 }
 
-export default AllProduct;
+export default ProductCard
