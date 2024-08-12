@@ -34,7 +34,7 @@ function Category() {
         },
         {
             image: 'https://i.pinimg.com/736x/10/4f/ac/104fac41b910145bb2c3bb15cf6b8894.jpg',
-            name: "Home_Furnishing",
+            name: "Home",
         },
         {
             image: 'https://i.pinimg.com/564x/80/55/96/805596598db8f4b2a7815f1526fa5455.jpg',

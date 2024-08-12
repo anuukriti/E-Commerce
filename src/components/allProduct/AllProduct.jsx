@@ -20,7 +20,7 @@ const AllProduct = () => {
                     {loading && <Loader />}
                         {getAllProduct.slice(0,20).map((item, index) => (
                             
-                            <ProductCard key={index} image={item.productImgUrl} price={item.price} title={item.title} item_id={item.id} />
+                            <ProductCard key={index} image={item.productImgUrl} price={item.price} title={item.title} item_id={item.id} item={item} />
                         ))}
                     </div>
             </section>
