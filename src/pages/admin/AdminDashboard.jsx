@@ -8,11 +8,11 @@ import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
     const user = JSON.parse(localStorage.getItem("users"));
-    console.log(user);
+    // console.log(user);
 
-    const {getAllProduct} = useContext(MyContext);
+    const {getAllProduct, getAllOrder, getAllUser} = useContext(MyContext);
     const navigate = useNavigate();
-
+    // console.log(getAllUser)
   return (
       <div>
           {/* Top */}
@@ -99,38 +99,37 @@ const AdminDashboard = () => {
                                         <path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1" />
                                     </svg>
                                 </div>
-                                <h2 className="title-font font-medium text-3xl text-black fonts1" >{getAllProduct.length}</h2>
+                                <h2 className="title-font font-medium text-3xl text-black fonts1" >{getAllOrder.length}</h2>
                                 <p className=" text-black  font-bold" >Total Order</p>
                             </div>
                         </Tab>
 
                         {/* Total User  */}
                         <Tab className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
-                            <div className=" border hover:bg-gray-100 bg-[#EEEDEB] border-gray-100 px-4 py-3 rounded-xl" >
-                                <div className="text-black w-12 h-12 mb-3 inline-block" >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width={50}
-                                        height={50}
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth={2}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        className="lucide lucide-users"
-                                    >
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                        <circle cx={9} cy={7} r={4} />
-                                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                    </svg>
-
+                                <div className=" border bg-pink-50 hover:bg-pink-100 border-pink-100 px-4 py-3 rounded-xl" >
+                                    <div className="text-pink-500 w-12 h-12 mb-3 inline-block" >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width={50}
+                                            height={50}
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            className="lucide lucide-users"
+                                        >
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                            <circle cx={9} cy={7} r={4} />
+                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                        </svg>
+                                    </div>
+                                    <h2 className="title-font font-medium text-3xl text-pink-400 fonts1" >{getAllUser.length}</h2>
+                                    <p className=" text-pink-500  font-bold" >Total Order</p>
                                 </div>
-                                <h2 className="title-font font-medium text-3xl text-black fonts1" >10</h2>
-                                <p className=" text-black  font-bold" >Total Order</p>
-                            </div>
-                        </Tab>
+                            </Tab>
                     </TabList>
 
                     <TabPanel >

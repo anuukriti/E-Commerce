@@ -17,7 +17,7 @@ const categoryList = [
       name: 'Gadgets'
   },
   {
-      name: 'footwear'
+      name: 'Footwear'
   },
   {
       name: 'Kitchen'
@@ -49,7 +49,7 @@ const AddProductPage = () => {
         productImgUrl : "",
         category : "",
         description : "",
-        quantity : "",
+        quantity : 1,
         time : Timestamp.now(),
         date: new Date().toLocaleString(
             "en-US",

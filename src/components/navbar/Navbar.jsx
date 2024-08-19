@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Searchbar from '../searchbar/Searchbar';
+import {useSelector} from 'react-redux'
 
 const Navbar = () => {
     const user = JSON.parse(localStorage.getItem("users"));
@@ -13,6 +14,8 @@ const Navbar = () => {
         localStorage.clear('users');
         navigate("/login")
     }
+
+    const cartItems = useSelector((state) => state.cart);
 
 
   // navList Data
@@ -49,7 +52,7 @@ const Navbar = () => {
           {/* Cart */}
           <li>
               <Link to={'/cart'}>
-              Cart
+              Cart ({cartItems.length})
               </Link>
           </li>
       </ul>

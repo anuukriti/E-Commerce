@@ -17,7 +17,7 @@ const categoryList = [
         name: 'Gadgets'
     },
     {
-        name: 'footwear'
+        name: 'Footwear'
     },
     {
         name: 'Kitchen'
@@ -52,9 +52,10 @@ const UpdateProductPage = () => {
     const [product, setProduct] = useState({
         title: "",
         price: "",
+        quantity: 1,
         productImgUrl: "",
         category: "",
-        description: "",
+        description: "1",
         time: Timestamp.now(),
         date: new Date().toLocaleString(
             "en-US",

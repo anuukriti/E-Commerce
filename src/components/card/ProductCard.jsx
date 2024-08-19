@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {addToCart, deleteFromCart} from '../../redux/CartSlice'
@@ -22,6 +22,10 @@ function ProductCard({key, title, price, image, item_id, item}) {
       dispatch(deleteFromCart(item));
       toast.success("Delete cart")
   }
+
+  useEffect(()=> {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+  }, [cartItems]);
 
     return (
     <div key={key} className="rounded-md shadow-md w-[150px] md:w-[280px] justify-between">

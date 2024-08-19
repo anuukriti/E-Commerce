@@ -15,6 +15,7 @@ import {Toaster} from 'react-hot-toast'
 import ProtectedRouteForUser from './protectedRoute/ProtectedRouteForUser'
 import ProtectedRouteForAdmin from './protectedRoute/ProtectedRouteForAdmin'
 import CategoryPage from './components/category/CategoryPage'
+import BuyNowModal from './components/buyNowModel/BuyNowModel'
 
 
 function App() {

@@ -6,8 +6,7 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
 
 const ProductDetail = () => {
-    const context = useContext(MyContext);
-    const {loading, setLoading, getAllProduct, getAllProductfunc} = context;
+    const {loading, setLoading, getAllProduct, getAllProductfunc} = useContext(MyContext);
 
     const navigate = useNavigate();
 

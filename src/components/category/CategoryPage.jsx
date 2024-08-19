@@ -149,7 +149,7 @@ function CategoryPage() {
                 <section className="text-gray-600 body-font md:mx-10 my-10">
                     <div className="flex flex-wrap gap-2 md:gap-10 justify-center">
                         {filterProduct.map((item, index) => (  
-                            <ProductCard key={index} image={item.productImgUrl} price={item.price} title={item.title} item_id={item.id} />
+                            <ProductCard key={index} image={item.productImgUrl} price={item.price} title={item.title} item_id={item.id} item={item} />
                         ))}
                     </div>
             </section>
