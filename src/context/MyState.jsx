@@ -33,31 +33,31 @@ function MyState({children}) {
     }
     }
 
-     // Order State 
-     const [getAllOrder, setGetAllOrder] = useState([]);
+    // Order State 
+    const [getAllOrder, setGetAllOrder] = useState([]);
 
-     //get all order function
     const getAllOrderFunction = async () => {
-      setLoading(true);
-      try {
-          const q = query(
-              collection(fireDB, "order"),
-              orderBy('time')
-          );
-          const data = onSnapshot(q, (QuerySnapshot) => {
-              let orderArray = [];
-              QuerySnapshot.forEach((doc) => {
-                  orderArray.push({ ...doc.data(), id: doc.id });
-              });
-              setGetAllOrder(orderArray);
-              setLoading(false);
-          });
-          return () => data;
-      } catch (error) {
-          console.log(error);
-          setLoading(false);
-      }
-  }
+    setLoading(true);
+    try {
+        const q = query(
+            collection(fireDB, "order"),
+            orderBy('time')
+        );
+        const data = onSnapshot(q, (QuerySnapshot) => {
+            let orderArray = [];
+            QuerySnapshot.forEach((doc) => {
+                orderArray.push({ ...doc.data(), id: doc.id });
+            });
+            setGetAllOrder(orderArray);
+            setLoading(false);
+        });
+        return () => data;
+    } catch (error) {
+        console.log(error);
+        setLoading(false);
+    }
+    }
+
   
   // user State 
   const [getAllUser, setGetAllUser] = useState([]);
@@ -82,14 +82,14 @@ function MyState({children}) {
         console.log(error);
         setLoading(false);
     }
-}
+    }
 
     useEffect(() => {
       getAllProductfunc();
       getAllOrderFunction();
       getAllUserFunction();
     }, [])
-console.log("getALLUSER", getAllUser)
+
   return (
     <div>
         <MyContext.Provider value={{loading, setLoading, getAllProduct, setGetAllProduct, getAllProductfunc, getAllOrder, setGetAllOrder, getAllOrderFunction, getAllUser, getAllUserFunction}}>

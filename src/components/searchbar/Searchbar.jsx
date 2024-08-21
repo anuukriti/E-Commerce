@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import {useNavigate} from "react-router-dom"
+import MyContext from "../../context/MyContext";
 
 // Search Data
 const searchData = [
@@ -26,11 +28,16 @@ const searchData = [
 ]
 
 const Searchbar = () => {
-   // Search State 
-   const [search, setSearch] = useState("");
+    const { getAllProduct } = useContext(MyContext);
 
-   // Filter Search Data
-   const filterSearchData = searchData.filter((obj) => obj.name.toLowerCase().includes(search)).slice(0, 8)
+    // Search State 
+    const [search, setSearch] = useState("");
+
+    // Filter Search Data
+    const filterSearchData = getAllProduct.filter((obj) => obj.title.toLowerCase().includes(search)).slice(0, 8)
+
+    const navigate = useNavigate();
+
   return (
     <div className="w-full">
     {/* search input  */}
@@ -50,9 +57,9 @@ const Searchbar = () => {
                 <>
                     {filterSearchData.map((item, index) => {
                         return (
-                            <div key={index} className="py-2 px-2">
-                                <div className="flex items-center gap-2">
-                                    {item.name}
+                            <div key={index} className="py-2 px-2" onClick={() => navigate(`productinfo/${item.id}`)}>
+                                <div className="flex items-center gap-2 text-black cursor-pointer">
+                                    {item.title}
                                 </div>
                             </div>
                         )

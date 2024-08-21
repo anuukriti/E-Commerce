@@ -9,45 +9,6 @@ import { useEffect, useState } from "react";
 import BuyNowModal from "../../components/buyNowModel/BuyNowModel";
 import { Navigate } from "react-router";
 
-const products = [
-    {
-        id: 1,
-        name: 'Nike Air Force 1 07 LV8',
-        href: '#',
-        price: '₹47,199',
-        originalPrice: '₹48,900',
-        discount: '5% Off',
-        color: 'Orange',
-        size: '8 UK',
-        imageSrc:
-            'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/54a510de-a406-41b2-8d62-7f8c587c9a7e/air-force-1-07-lv8-shoes-9KwrSk.png',
-    },
-    {
-        id: 2,
-        name: 'Nike Blazer Low 77 SE',
-        href: '#',
-        price: '₹1,549',
-        originalPrice: '₹2,499',
-        discount: '38% off',
-        color: 'White',
-        leadTime: '3-4 weeks',
-        size: '8 UK',
-        imageSrc:
-            'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e48d6035-bd8a-4747-9fa1-04ea596bb074/blazer-low-77-se-shoes-0w2HHV.png',
-    },
-    {
-        id: 3,
-        name: 'Nike Air Max 90',
-        href: '#',
-        price: '₹2219 ',
-        originalPrice: '₹999',
-        discount: '78% off',
-        color: 'Black',
-        imageSrc:
-            'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/fd17b420-b388-4c8a-aaaa-e0a98ddf175f/dunk-high-retro-shoe-DdRmMZ.png',
-    },
-]
-
 
 const CartPage = () => {
 
@@ -80,8 +41,8 @@ const CartPage = () => {
 
     // user
     const user = JSON.parse(localStorage.getItem('users'))
-
-    // Buy Now Function
+    
+    // address
     const [addressInfo, setAddressInfo] = useState({
         name: "",
         address: "",
@@ -98,45 +59,67 @@ const CartPage = () => {
         )
     });
 
-    const buyNowFunction = () => {
+    // Buy Now Function
+    const buyNowFunction= async () => {
         // validation 
         if (addressInfo.name === "" || addressInfo.address === "" || addressInfo.pincode === "" || addressInfo.mobileNumber === "") {
             return toast.error("All Fields are required")
         }
+    
+        var options = {
+          key: "rzp_test_wAQwoHpxLuuWXs",
+          key_secret: "NvlWT6RkF5eQhlx16FvfNvRY",
+          amount: parseInt(cartTotal * 100),
+          currency: "INR",
+          order_receipt: 'order_rcptid_' + addressInfo.name,
+          name: "E-Bharat",
+          description: "for testing purpose",
+          handler: function (response) {
 
-        // Order Info 
-        const orderInfo = {
-            cartItems,
-            addressInfo,
-            email: user.email,
-            userid: user.uid,
-            status: "confirmed",
-            time: Timestamp.now(),
-            date: new Date().toLocaleString(
+            toast.success('Payment Successful')
+            const paymentId = response.razorpay_payment_id
+            // store in firebase 
+            const orderInfo = {
+              cartItems,
+              addressInfo,
+              email: user.email,
+              userid: user.uid,
+              status: "confirmed",
+              time: Timestamp.now(),
+              date: new Date().toLocaleString(
                 "en-US",
                 {
-                    month: "short",
-                    day: "2-digit",
-                    year: "numeric",
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
                 }
-            )
-        }
-        try {
-            const orderRef = collection(fireDB, 'order');
-            addDoc(orderRef, orderInfo);
-            setAddressInfo({
-                name: "",
-                address: "",
-                pincode: "",
-                mobileNumber: "",
-            })
-            toast.success("Order Placed Successfully")
-        } catch (error) {
-            console.log(error)
-        }
-
-    }
-
+              ),
+              paymentId
+            }
+    
+            try {
+                const orderRef = collection(fireDB, 'order');
+                addDoc(orderRef, orderInfo);
+                setAddressInfo({
+                    name: "",
+                    address: "",
+                    pincode: "",
+                    mobileNumber: "",
+                })
+            toast.success("Order Placed Successfull")
+            } catch (error) {
+              console.log(error)
+            }
+          },
+          theme: {
+            color: "#3399cc"
+          }
+        };
+        var pay = new window.Razorpay(options);
+        pay.open();
+        console.log(pay)
+    };
+    
     return (
         <Layout>
             <div className="container mx-auto max-w-7xl px-2 lg:px-0">

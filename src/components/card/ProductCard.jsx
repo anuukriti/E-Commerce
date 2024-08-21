@@ -7,12 +7,12 @@ import {toast} from 'react-hot-toast'
 function ProductCard({key, title, price, image, item_id, item}) {
     const navigate = useNavigate();
 
-    console.log(item)
+    // console.log(item)
 
     const cartItems = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
-    console.log(addToCart)
+    // console.log(addToCart)
     const addCart = (item) => {
       dispatch(addToCart(item));
       toast.success("Added to cart")
