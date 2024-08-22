@@ -12,6 +12,14 @@ function CategoryPage() {
 
     // Filter the products based on selected category, type, and price
     let filterProduct = getAllProduct.filter((obj) => obj.category.includes(categoryName));
+    // let categoryOptions = [];
+    let stringSet = new Set();
+    filterProduct.map((obj) => [
+        stringSet.add(obj.title)
+    ])
+    let categoryOptions = Array.from(stringSet);
+    console.log(categoryOptions);
+
     filterProduct = filterProduct
         .filter((obj) => filterType === "All" || obj.title.includes(filterType))
         .filter((obj) => filterPrice === "All" || obj.price < parseInt(filterPrice));
@@ -22,7 +30,7 @@ function CategoryPage() {
 
     return (
         <Layout>
-            <Filter /> 
+            <Filter categoryOptions={categoryOptions} /> 
             {loading ? (
                 <div className='w-full flex justify-center'><Loader /></div>
             ) : (

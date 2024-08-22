@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import MyContext from '../../context/MyContext';
 
-function Filter() {
+function Filter({categoryOptions}) {
+    console.log(categoryOptions);
     const context = useContext(MyContext);
     const { filterType, setFilterType, filterPrice, setFilterPrice } = context;
 
@@ -17,11 +18,13 @@ function Filter() {
                     value={filterType} 
                     onChange={(e) => setFilterType(e.target.value)} 
                     className="w-auto px-4 py-3 rounded-md bg-gray-50 shadow-sm text-sm"
-                >
-                    <option value="All" className='px-2'>All</option>
-                    <option value="saree" className='px-2'>Saree</option>
-                    <option value="Shirt" className='px-2'>Shirt</option>
-                    <option value="Footwear" className='px-2'>Footwear</option>
+                >                  
+                    <option value="All" className='px-2'>All</option>  
+                    {categoryOptions.map((obj) => {
+                        return (
+                            <option value={obj} className='px-2'>{obj}</option>
+                        )
+                    })}
                 </select>
                 <select 
                     value={filterPrice} 
