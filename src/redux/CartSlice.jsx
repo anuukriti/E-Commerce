@@ -13,20 +13,16 @@ export const CartSlice = createSlice({
             return state.filter(item => item.id !== action.payload.id);
         },
         incrementQuantity: (state, action) => {
-            return state.map(item => {
-                if (item.id === action.payload) {
-                    item.quantity++;
-                }
-                return item;
-            });
+            const item = state.find((item) => item.id === action.payload);
+            if (item) {
+                item.quantity += 1;
+            }
         },
         decrementQuantity: (state, action) => {
-            return state.map(item => {
-                if (item.quantity > 1 && item.id === action.payload) {
-                    item.quantity--;
-                }
-                return item;
-            });
+            const item = state.find((item) => item.id === action.payload);
+            if (item && item.quantity > 1) {
+                item.quantity -= 1;
+            }
         },
         clearCart: (state) => {
             return [];
