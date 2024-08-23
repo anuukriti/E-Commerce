@@ -13,7 +13,6 @@ import toast from 'react-hot-toast';
 function ProductInfo() {
   const { loading, setLoading } = useContext(MyContext);
   const [product, setProduct] = useState('');
-  // console.log(product);
   const [selectedSize, setSelectedSize] = useState(''); // New state for selected size
   const { id } = useParams();
 
@@ -58,19 +57,19 @@ function ProductInfo() {
 
   return (
     <Layout>
-      <section className='flex flex-wrap mt-10 justify-center gap-20'>
+      <section>
         {loading ? (
           <Loader />
         ) : (
           <>
-            {/* image */}
-            <div className='h-[550px] w-[450px]'>
-              <img src={product?.productImgUrl} alt='product_image' className='bg-cover bg-center h-full w-full' />
+          <div className='px-4 w-full flex flex-col md:flex-row md:gap-10 md:mt-6 items-center justify-center'>
+            <div>
+              <img src={product?.productImgUrl} alt='product_image' className='bg-cover bg-center h-[350px] w-auto md:h-[400px] md:w-[360px] lg:h-[550px] lg:w-[450px]' />
             </div>
-            {/* desc */}
-            <div className='w-[800px]'>
-              <h2 className="text-sm font-semibold tracking-widest text-gray-500">{product?.title}</h2>
-              <h1 className="my-4 text-3xl font-semibold text-black">{product?.description}</h1>
+            {/* description */}
+            <div className='w-auto md:w-[800px]'>
+              <h2 className="text-[8px] md:text-sm font-semibold tracking-widest text-gray-500 mt-4">{product?.title}</h2>
+              <h1 className="md:my-4 text-md md:text-xl lg:text-3xl font-semibold text-black">{product?.description}</h1>
               <div className="my-4 flex items-center border-b-2 border-gray-100 pb-5">
                 <span className="flex items-center space-x-1">
                   {[...Array(5)].map((_, i) => (
@@ -80,17 +79,17 @@ function ProductInfo() {
                 </span>
               </div>
 
-              <p className="leading-relaxed text-xl font-bold text-gray-900">₹{product?.price}</p>
+              <p className="leading-relaxed text-sm md:text-xl font-bold text-gray-900">₹{product?.price}</p>
 
               {/* size */}
               {product.size && product.size.length > 0 && (
-                <div className="mb-5 mt-6 pb-5">
-                  <span className="mr-3 text-sm font-semibold">Size Chart</span>
-                  <div className="flex items-center gap-2 pt-2">
+                <div className="mt-6 pb-5">
+                  <span className="mr-3 text-[12px] md:text-sm md:font-semibold">Size Chart</span>
+                  <div className="flex items-center gap-2 pt-2 flex-wrap">
                     {product.size.map((obj, index) => (
                       <button
                         key={index}
-                        className={`h-8 w-16 rounded-full border border-gray-300 focus:outline-none text-black ${selectedSize === obj ? 'bg-gray-300' : ''}`}
+                        className={`h-5 w-10 lg:h-8 lg:w-16 text-[12px] lg:text-sm rounded-full border border-gray-300 focus:outline-none text-black ${selectedSize === obj ? 'bg-gray-300' : ''}`}
                         onClick={() => setSelectedSize(obj)}
                       >
                         {obj}
@@ -101,12 +100,12 @@ function ProductInfo() {
               )}
 
               {/* button */}
-              <div className="flex items-center justify-center gap-10 border-b-2 border-gray-100 pb-5">
+              <div className="px-4 my-4 flex flex-col md:flex-row gap-2 items-center justify-center md:items-start md:gap-10 border-b-2 border-gray-100 pb-5">
                 {cartItems.some((p) => p.id === product.id) ? (
                   <button
                     onClick={() => navigate('/cart')}
                     type="button"
-                    className="w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                    className="w-full md:w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   >
                     Go to Cart
                   </button>
@@ -114,7 +113,7 @@ function ProductInfo() {
                   <button
                     onClick={() => addCart(product)}
                     type="button"
-                    className="w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                    className="w-full md:w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   >
                     Add to Cart
                   </button>
@@ -122,11 +121,12 @@ function ProductInfo() {
 
                 <button
                   type="button"
-                  className="w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  className="w-full md:w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
-                  Add to Wishlist
+                  Buy Now
                 </button>
               </div>
+            </div>
             </div>
           </>
         )}
