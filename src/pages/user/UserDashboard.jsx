@@ -10,6 +10,8 @@ const UserDashboard = () => {
     const {loading, getAllOrder}  = useContext(MyContext);
     // console.log("all order",getAllOrder);
 
+    const sortedOrder = [...getAllOrder].sort((a, b) => new Date(b.time.seconds) - new Date(a.time.seconds));
+
     return (
         <Layout>
             <div className=" container mx-auto px-4 py-5 lg:py-8">
@@ -41,7 +43,7 @@ const UserDashboard = () => {
                         </div>
                         
                         {/* main 2 */}
-                        {getAllOrder.filter((obj) => obj.userid === user?.uid).map((order, index) => {
+                        {sortedOrder.filter((obj) => obj.userid === user?.uid).map((order, index) => {
                             // console.log(order);
                             return (
                                 <div key={index}>

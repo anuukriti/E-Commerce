@@ -11,7 +11,7 @@ import { Navigate } from "react-router";
 
 const CartPage = () => {
     const cartItems = useSelector((state) => state.cart);
-    console.log("cart item ", cartItems)
+    // console.log("cart item ", cartItems)
     const dispatch = useDispatch();
 
     const deleteCart = (item) => {

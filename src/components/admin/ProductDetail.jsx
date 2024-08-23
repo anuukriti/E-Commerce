@@ -22,9 +22,9 @@ const ProductDetail = () => {
             setLoading(false); 
         }
     };
-
+    // console.log(getAllProduct);
     // Sort products by date in descending order
-    const sortedProducts = [...getAllProduct].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const sortedProducts = [...getAllProduct].sort((a, b) => new Date(b.time.seconds) - new Date(a.time.seconds));
 
     return (
         <div>

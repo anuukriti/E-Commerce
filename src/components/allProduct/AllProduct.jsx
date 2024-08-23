@@ -7,7 +7,7 @@ const AllProduct = () => {
     const { loading, getAllProduct } = useContext(MyContext);
 
     // Sort products by date in descending order
-    const sortedProducts = [...getAllProduct].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const sortedProducts = [...getAllProduct].sort((a, b) => new Date(b.time.seconds) - new Date(a.time.seconds));
 
     return (
         <div className="mt-8">
