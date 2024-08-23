@@ -64,7 +64,7 @@ const CartPage = () => {
             amount: parseInt(cartTotal * 100),
             currency: "INR",
             order_receipt: 'order_rcptid_' + addressInfo.name,
-            name: "Kreteria",
+            name: "Kriteria",
             description: "for testing purpose",
             handler: async function (response) {
                 toast.success('Payment Successful');
