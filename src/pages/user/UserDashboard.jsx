@@ -5,35 +5,28 @@ import Loader from "../../components/loader/Loader";
 
 const UserDashboard = () => {
     const user = JSON.parse(localStorage.getItem("users"));
-    // console.log("user ", user);
-
     const {loading, getAllOrder}  = useContext(MyContext);
-    // console.log("all order",getAllOrder);
 
     const sortedOrder = [...getAllOrder].sort((a, b) => new Date(b.time.seconds) - new Date(a.time.seconds));
 
     return (
         <Layout>
             <div className=" container mx-auto px-4 py-5 lg:py-8">
-                {/* Top  */}
-                <div className="top ">
-                    {/* main  */}
-                    <div className=" bg-[#EEEDEB] py-5 rounded-xl border border-[[#EEEDEB]]">
-                        {/* image  */}
-                        <div className="flex justify-center">
-                        <img width="90" height="90" src="https://img.icons8.com/ios-glyphs/90/user--v1.png" alt="user--v1"/>
-                        </div>
-                        {/* text  */}
-                        <div className="">
-                            <h1 className=" text-center text-lg"><span className=" font-bold">Name :</span>{user?.name}</h1>
-                            <h1 className=" text-center text-lg"><span className=" font-bold">Email :</span>{user?.email}</h1>
-                        </div>
+                {   /* top */}
+                <div className=" bg-[#EEEDEB] py-5 rounded-xl border border-[[#EEEDEB]]">
+                    {/* image  */}
+                    <div className="flex justify-center">
+                    <img className="w-20 h-20 md:h-24 md:w-24" src="https://img.icons8.com/ios-glyphs/90/user--v1.png" alt="user--v1"/>
+                    </div>
+                    {/* text  */}
+                    <div>
+                        <h1 className=" text-center text-sm md:text-lg"><span className=" font-semibold">Name :</span>{user?.name}</h1>
+                        <h1 className=" text-center text-sm md:text-lg"><span className=" font-semibold">Email :</span>{user?.email}</h1>
                     </div>
                 </div>
 
+
                 {/* bottom  */}
-                <div className="bottom">
-                    {/* main 1 */}
                     <div className="mx-auto my-4 max-w-6xl px-2 md:my-6 md:px-0">
                         {/* text  */}
                         <h2 className=" text-2xl lg:text-3xl font-bold">Order Details</h2>
@@ -101,7 +94,6 @@ const UserDashboard = () => {
                         })}
                         
                     </div>
-                </div>
             </div>
         </Layout>
     );
