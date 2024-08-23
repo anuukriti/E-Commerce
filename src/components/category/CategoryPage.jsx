@@ -10,18 +10,18 @@ function CategoryPage() {
     const { categoryName } = useParams();
     const { getAllProduct, loading, filterType, filterPrice, filterGender } = useContext(MyContext);
 
-    // Filter the products based on selected category, type, and price
-    let filterProduct = getAllProduct.filter((obj) => obj.category.includes(categoryName));
+    // Filter the products based on selected category
+    let filterProduct = getAllProduct.filter((obj) => obj.category.toLowerCase().includes(categoryName));
+
+    // filter the product based on subcategory and gender
     let stringSetCategory = new Set();
     let stringSetGender = new Set();
     filterProduct.map((obj) => [
         stringSetCategory.add(obj.subCategory),
-        obj.gender ? stringSetGender.add(obj.gender) : "",
+        obj.gender && stringSetGender.add(obj.gender),
     ])
     let categoryOptions = Array.from(stringSetCategory);
     let genderarray = Array.from(stringSetGender);
-    // console.log("gender ",genderarray);
-    console.log("filter type", filterType);
 
     filterProduct = filterProduct
         .filter((obj) => filterType === "Category" || obj.subCategory.includes(filterType))
@@ -32,7 +32,6 @@ function CategoryPage() {
         // Re-filter products whenever filterType or filterPrice changes
     }, [filterType, filterPrice, filterGender]);
 
-    console.log("filter product",filterProduct);
     return (
         <Layout>
             <Filter categoryOptions={categoryOptions} genderarray={genderarray} /> 

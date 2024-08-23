@@ -7,25 +7,19 @@ import toast from "react-hot-toast";
 import Loader from "../../components/loader/Loader";
 
 const categoryList = [
-  { name: 'Fashion' },
-  { name: 'Kids' },
-  { name: 'Gadgets' },
-  { name: 'Footwear' },
-  { name: 'Kitchen' },
-  { name: 'Home' },
-  { name: 'Toys' },
-  { name: 'Watch' },
-  { name: 'Cosmetics' },
-  { name: 'Jewellery' },
+  { name: 'fashion' },
+  { name: 'kids' },
+  { name: 'gadgets' },
+  { name: 'footwear' },
+  { name: 'kitchen' },
+  { name: 'home' },
+  { name: 'toys' },
+  { name: 'watch' },
+  { name: 'cosmetics' },
+  { name: 'jewellery' }
 ];
 
-const genderList = [
-  { name: 'All' },
-  { name: 'Male' },
-  { name: 'Female' },
-  { name: 'Boy' },
-  { name: 'Girl' },
-];
+const genderList = ['Select Gender','All', 'Male', 'Female', 'Boy', 'Girl'];
 
 const UpdateProductPage = () => {
   const context = useContext(MyContext);
@@ -188,7 +182,7 @@ const UpdateProductPage = () => {
             />
           </div>
 
-          {["Fashion", "Footwear"].includes(product.category) && (
+          {["fashion", "footwear"].includes(product.category) && (
             <>
             <div className="mb-3">
               <input
@@ -208,7 +202,7 @@ const UpdateProductPage = () => {
             </>
           )}
 
-          {["Fashion", "Watch", "Footwear", "Kids", "Jewellery"].includes(product.category) && (
+          {["fashion", "watch", "footwear", "kids", "jewellery"].includes(product.category) && (
             <>
             <div className="mb-3">
               <select
@@ -221,8 +215,8 @@ const UpdateProductPage = () => {
                 }}
                 className="w-full px-1 py-2 text-gray-500 bg-gray-50 border border-gray-200 rounded-md outline-none">
                 <option>Select Gender</option>
-                {genderList.map((value, index) => (
-                  <option key={index} value={value.name}>{value.name}</option>
+                {genderList.map((gender, index) => (
+                  <option key={index} value={gender}>{gender}</option>
                 ))}
               </select>
             </div>

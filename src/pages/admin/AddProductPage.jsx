@@ -7,16 +7,16 @@ import Loader from "../../components/loader/Loader";
 import { fireDB } from "../../firebase/FirebaseConfig";
 
 const categoryList = [
-  { name: 'Fashion' },
-  { name: 'Kids' },
-  { name: 'Gadgets' },
-  { name: 'Footwear' },
-  { name: 'Kitchen' },
-  { name: 'Home' },
-  { name: 'Toys' },
-  { name: 'Watch' },
-  { name: 'Cosmetics' },
-  { name: 'Jewellery' }
+  { name: 'fashion' },
+  { name: 'kids' },
+  { name: 'gadgets' },
+  { name: 'footwear' },
+  { name: 'kitchen' },
+  { name: 'home' },
+  { name: 'toys' },
+  { name: 'watch' },
+  { name: 'cosmetics' },
+  { name: 'jewellery' }
 ];
 
 const genderList = ['Select Gender','All', 'Male', 'Female', 'Boy', 'Girl'];
@@ -52,7 +52,7 @@ const AddProductPage = () => {
             return toast.error("All fields are required");
         }
 
-        const categoryWithGenderOptions = ["Fashion", "Watch", "Footwear", "Jewellery"];
+        const categoryWithGenderOptions = ["fashion", "watch", "footwear", "jewellery"];
         if (categoryWithGenderOptions.includes(product.category)) {
             const sizes = product.size.split(',').map(size => size.trim());
 
