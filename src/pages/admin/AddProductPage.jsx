@@ -83,7 +83,7 @@ const AddProductPage = () => {
     return (
         <div className="flex justify-center items-center h-screen w-screen bg-gray-200 overflow-y-scroll">
             {loading && <Loader />}
-            <div className="bg-gray-50 px-6 pb-6 border border-gray-100 rounded-xl shadow-lg items-center justify-center w-full md:w-auto">
+            <div className="bg-gray-50 px-6 pb-6 border border-gray-100 rounded-xl shadow-lg items-center justify-center w-full h-full md:w-auto md:h-auto">
                 <h2 className='text-center text-lg md:text-2xl font-bold text-black py-6'>Add Product</h2>
 
                 <div className="flex flex-col gap-4 text-[12px] md:text-sm">
