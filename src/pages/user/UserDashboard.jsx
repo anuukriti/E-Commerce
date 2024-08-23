@@ -52,32 +52,16 @@ const UserDashboard = () => {
                                         const { status } = order
                                         return (
                                             <div key={index} className="mt-5 flex flex-col overflow-hidden rounded-xl border border-gray-100 md:flex-row">
-                                                {/* main 3  */}
                                                 <div className="w-full border-r border-gray-100 bg-gray-50 md:max-w-xs">
-                                                    {/* left  */}
-                                                    <div className="p-6">
-                                                        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-1">
-                                                            <div className="mb-2">
-                                                                <div className="text-sm font-semibold text-black">Order Id</div>
-                                                                <div className="text-sm font-medium text-gray-900">#{id}</div>
-                                                            </div>
-                                                            <div className="mb-2">
-                                                                <div className="text-sm font-semibold">Date</div>
-                                                                <div className="text-sm font-medium text-gray-900">{date}</div>
-                                                            </div>
-                                                            <div className="mb-2">
-                                                                <div className="text-sm font-semibold">Total Amount</div>
-                                                                <div className="text-sm font-medium text-gray-900">₹ {price * quantity}</div>
-                                                            </div>
-                                                            
-                                                            <div className="mb-2">
-                                                                <div className="text-sm font-semibold">Order Status</div>                              
-                                                                  <div className="text-sm font-medium text-green-800 first-letter:uppercase">{status}</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    {/* details */}
+                                                    <ul className="flex flex-col gap-2 p-4 md:p-6 mb-2 text-[12px] font-medium text-black md:text-sm">
+                                                                <li>Order Id : #{id}</li>
+                                                                <li>Date : {date}</li>
+                                                                <li>Total Amount : ₹ {price * quantity}</li>                                                  
+                                                                <li className="text-green-800 first-letter:uppercase">Order Status : {status}</li>
+                                                    </ul>
                                                 </div>
-                                                {/* right  */}
+                                                {/* img  */}
                                                 <div className="flex-1">
                                                     <div className="p-8">
                                                         <ul className="-my-7 divide-y divide-gray-200">
@@ -87,7 +71,7 @@ const UserDashboard = () => {
                                                                 <div className="flex flex-1 items-stretch">
                                                                     <div className="flex-shrink-0">
                                                                         <img
-                                                                            className="h-40 w-40 rounded-lg border border-gray-200 object-cover"
+                                                                            className="h-20 w-20 rounded-lg border border-gray-200 object-cover"
                                                                             src={productImgUrl}
                                                                             alt="img"
                                                                         />
