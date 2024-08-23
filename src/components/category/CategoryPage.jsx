@@ -11,7 +11,7 @@ function CategoryPage() {
     const { getAllProduct, loading, filterType, filterPrice, filterGender } = useContext(MyContext);
 
     // Filter the products based on selected category
-    let filterProduct = getAllProduct.filter((obj) => obj.category.toLowerCase().includes(categoryName));
+    let filterProduct = getAllProduct.filter((obj) => obj.category.toLowerCase().includes(categoryName.toLowerCase()));
 
     // filter the product based on subcategory and gender
     let stringSetCategory = new Set();

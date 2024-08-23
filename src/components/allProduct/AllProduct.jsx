@@ -10,7 +10,7 @@ const AllProduct = () => {
     const sortedProducts = [...getAllProduct].sort((a, b) => new Date(b.time.seconds) - new Date(a.time.seconds));
 
     return (
-        <div className="mt-8">
+        <div className="my-8">
             {/* Heading  */}
             <div className="">
                 <h1 className="text-center mb-5 text-2xl font-semibold">New Products</h1>

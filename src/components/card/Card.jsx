@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom'
 
 function Card({key, title, image}) {
   const navigate = useNavigate();
+  
+  let path = title.toLowerCase();
 
   return(
-    <div onClick={() => navigate(`/category/${title}`)} key={key} className="rounded-md shadow-md w-[150px] md:w-[230px] justify-between relative">
+    <div onClick={() => navigate(`/category/${path}`)} key={key} className="rounded-md shadow-md w-[150px] md:w-[230px] justify-between relative">
     <img
       src={image}
       alt={title}

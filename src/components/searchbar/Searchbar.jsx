@@ -15,7 +15,7 @@ const Searchbar = () => {
     })
     let filterdata = Array.from(filtersetdata);
 
-    const filterSearchData = filterdata.filter((obj) => obj.includes(search)).slice(0, 8)
+    const filterSearchData = filterdata.filter((obj) => obj.toLowerCase().includes(search.toLowerCase())).slice(0, 8)
 
     const navigate = useNavigate();
 
