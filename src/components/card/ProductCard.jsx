@@ -1,32 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import {useSelector, useDispatch} from 'react-redux'
-import {addToCart, deleteFromCart} from '../../redux/CartSlice'
-import {toast} from 'react-hot-toast'
 
-function ProductCard({key, title, price, image, item_id, item}) {
+function ProductCard({key, title, price, image, item_id,}) {
     const navigate = useNavigate();
-
-    // console.log(item)
-
-    const cartItems = useSelector((state) => state.cart);
-    const dispatch = useDispatch();
-
-    // console.log(addToCart)
-    const addCart = (item) => {
-      dispatch(addToCart(item));
-      toast.success("Added to cart")
-    }
-
-    const deleteCart = (item) => {
-      dispatch(deleteFromCart(item));
-      toast.success("Delete cart")
-  }
-
-  useEffect(()=> {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-  }, [cartItems]);
-
     return (
     <div key={key} className="rounded-md shadow-md w-[150px] md:w-[280px] justify-between">
           <img
@@ -40,25 +16,7 @@ function ProductCard({key, title, price, image, item_id, item}) {
                 <h1 className=" items-center text-[12px] md:text-md">{title}</h1>
                 <h1 className=" items-center font-semibold text-sm md:text-lg">Rs {price}</h1>
             </div>
-            {
-              cartItems.some((p) => p.id === item_id)
-              ?
-              <button
-              type="button"
-              onClick={() => deleteCart(item)}
-              className="mt-2 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            >
-              Remove from Cart
-            </button>
-            :
-            <button
-              type="button"
-              onClick={() => addCart(item)}
-              className="mt-2 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-            >
-              Add to Cart
-            </button>
-            }
+            
           </div>
         </div>
   )

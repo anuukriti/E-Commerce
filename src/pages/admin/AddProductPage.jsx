@@ -14,10 +14,12 @@ const categoryList = [
   { name: 'Kitchen' },
   { name: 'Home' },
   { name: 'Toys' },
-  { name: 'Women' },
   { name: 'Watch' },
-  { name: 'Men' }
+  { name: 'Cosmetics' },
+  { name: 'Jewellery' }
 ];
+
+const genderList = ['Select Gender','All', 'Male', 'Female', 'Boy', 'Girl'];
 
 const AddProductPage = () => {
     const { loading, setLoading } = useContext(MyContext);
@@ -28,10 +30,12 @@ const AddProductPage = () => {
         price: "",
         productImgUrl: "",
         category: "",
+        subCategory: "",
         description: "",
         quantity: 1,
         size: "",
         color: "",
+        gender: "",
         time: Timestamp.now(),
         date: new Date().toLocaleString(
             "en-US",
@@ -48,16 +52,19 @@ const AddProductPage = () => {
             return toast.error("All fields are required");
         }
 
-        if (product.category === "Fashion") {
+        const categoryWithGenderOptions = ["Fashion", "Watch", "Footwear", "Jewellery"];
+        if (categoryWithGenderOptions.includes(product.category)) {
             const sizes = product.size.split(',').map(size => size.trim());
-            const colors = product.color.split(',').map(color => color.trim());
 
-            if (sizes.length === 0 || colors.length === 0) {
-                return toast.error("Size and color are required for Fashion products");
+            if (sizes.length === 0) {
+                return toast.error("Size are required for products in selected category");
+            }
+
+            if (product.gender === "") {
+                return toast.error("Gender is required for products in selected category");
             }
 
             product.size = sizes;
-            product.color = colors;
         }
 
         setLoading(true);
@@ -140,7 +147,7 @@ const AddProductPage = () => {
                             });
                         }}
                         className="w-full px-2 py-2 text-black bg-gray-50 border border-gray-200 rounded-md outline-none">
-                        <option disabled>Select Product Category</option>
+                        <option>Select Product Category</option>
                         {categoryList.map((value, index) => {
                             const { name } = value;
                             return (
@@ -150,7 +157,42 @@ const AddProductPage = () => {
                     </select>
                 </div>
 
-                {product.category === "Fashion" && (
+                <div className="mb-3 py-2 px-2">
+                    <input
+                        type="text"
+                        value={product.subCategory}
+                        onChange={(e) => {
+                            setProduct({
+                                ...product,
+                                subCategory: e.target.value,
+                            })
+                        }}
+                        placeholder='Sub Category'
+                        className='bg-gray-50 text-black border border-gray-200 px-4 py-2 w-96 rounded-md outline-none placeholder-gray-400'
+                    />
+                </div>
+
+                {["Fashion", "Watch", "Footwear", "Kids", "Jewellery"].includes(product.category) && (
+                    <>
+                        <div className="mb-3 py-2 px-2">
+                            <select
+                                value={product.gender}
+                                onChange={(e) => {
+                                    setProduct({
+                                        ...product,
+                                        gender: e.target.value,
+                                    });
+                                }}
+                                className="w-full px-2 py-2 text-black bg-gray-50 border border-gray-200 rounded-md outline-none">
+                                <option disabled>Select Gender</option>
+                                {genderList.map((gender, index) => (
+                                    <option key={index} value={gender}>{gender}</option>
+                                ))}
+                            </select>
+                        </div>
+                        </>
+                )}
+                {["Fashion", "Footwear"].includes(product.category) && (
                     <>
                         <div className="mb-3 py-2 px-2">
                             <input
@@ -167,20 +209,6 @@ const AddProductPage = () => {
                             />
                         </div>
 
-                        <div className="mb-3 py-2 px-2">
-                            <input
-                                type="text"
-                                value={product.color}
-                                onChange={(e) => {
-                                    setProduct({
-                                        ...product,
-                                        color: e.target.value,
-                                    })
-                                }}
-                                placeholder='Product Colors (e.g., Red, Green, Blue)'
-                                className='bg-gray-50 text-black border border-gray-200 px-4 py-2 w-96 rounded-md outline-none placeholder-gray-400'
-                            />
-                        </div>
                     </>
                 )}
 

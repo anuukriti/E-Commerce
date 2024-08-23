@@ -1,63 +1,71 @@
-import React, { useContext, useState, useEffect } from 'react'
-import Layout from '../../components/layout/Layout'
-import { Star, ChevronDown } from 'lucide-react'
-import MyContext from '../../context/MyContext'
+import React, { useContext, useState, useEffect } from 'react';
+import Layout from '../../components/layout/Layout';
+import { Star } from 'lucide-react';
+import MyContext from '../../context/MyContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fireDB } from "../../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import Loader from '../../components/loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, deleteFromCart } from '../../redux/CartSlice';
+import { addToCart } from '../../redux/CartSlice';
 import toast from 'react-hot-toast';
 
 function ProductInfo() {
-  const {loading, setLoading} = useContext(MyContext);
-
+  const { loading, setLoading } = useContext(MyContext);
   const [product, setProduct] = useState('');
+  // console.log(product);
+  const [selectedSize, setSelectedSize] = useState(''); // New state for selected size
+  const { id } = useParams();
 
-  const { id } = useParams()
-  // console.log("id use params", id);
-
-  // getProductData
   const getProductData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-        const productTemp = await getDoc(doc(fireDB, "products", id))
-        setProduct({...productTemp.data(), id:productTemp.id});
-        setLoading(false)
+      const productTemp = await getDoc(doc(fireDB, "products", id));
+      setProduct({ ...productTemp.data(), id: productTemp.id });
+      setLoading(false);
     } catch (error) {
-        console.log(error)
-        setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
-  }
+  };
 
-  console.log("product : ",product);
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-    console.log(addToCart)
-    const addCart = (item) => {
-      dispatch(addToCart(item));
-      toast.success("Added to cart")
+  const addCart = (item) => {
+    if (item.size && !selectedSize) {
+      toast.error("Please select a size before adding to cart");
+      return;
     }
 
-  useEffect(()=> {
+    const itemToAdd = {
+      ...item,
+      selectedSize: selectedSize || '', // Add the selected size to the item being added to the cart
+    };
+
+    dispatch(addToCart(itemToAdd));
+    toast.success("Added to cart");
+  };
+
+  useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
   useEffect(() => {
-      getProductData()
-  }, [])
+    getProductData();
+  }, []);
 
   return (
     <Layout>
-        <section className='flex flex-wrap mt-10 justify-center gap-20'>
-        {loading ? <> <Loader /> </> :
+      <section className='flex flex-wrap mt-10 justify-center gap-20'>
+        {loading ? (
+          <Loader />
+        ) : (
           <>
             {/* image */}
             <div className='h-[550px] w-[450px]'>
-                <img src={product?.productImgUrl} alt='product_image' className='bg-cover bg-center h-full w-full' />
+              <img src={product?.productImgUrl} alt='product_image' className='bg-cover bg-center h-full w-full' />
             </div>
             {/* desc */}
             <div className='w-[800px]'>
@@ -73,64 +81,58 @@ function ProductInfo() {
               </div>
 
               <p className="leading-relaxed text-xl font-bold text-gray-900">₹{product?.price}</p>
-              
-              {/* color */}
-              <div className="mb-5 mt-6 flex items-center">
-                <div className="flex items-center">
-                  <span className="mr-3 text-sm font-semibold">Color</span>
-                  <button className="h-6 w-6 rounded-full border-2 border-gray-300 focus:outline-none"></button>
-                  <button className="ml-1 h-6 w-6 rounded-full border-2 border-gray-300 bg-gray-700 focus:outline-none"></button>
-                  <button className="ml-1 h-6 w-6 rounded-full border-2 border-gray-300 bg-green-200 focus:outline-none"></button>
-                </div>
-              </div>
 
               {/* size */}
-              <div className="mb-5 mt-6 pb-5">
-                <span className="mr-3 text-sm font-semibold">Size Chart</span>
-                <div className="flex items-center gap-2 pt-2">
-                  <button className="h-8 w-16 rounded-full border border-gray-300 focus:outline-none">S</button>
-                  <button className="h-8 w-16 rounded-full border border-gray-300 focus:outline-none">M</button>
-                  <button className="h-8 w-16 rounded-full border border-gray-300 focus:outline-none">L</button>
-                  <button className="h-8 w-16 rounded-full border border-gray-300 focus:outline-none">XL</button>
-                  <button className="h-8 w-16 rounded-full border border-gray-300 focus:outline-none">XXL</button>
-                  <button className="h-8 w-16 rounded-full border border-gray-300 focus:outline-none">XXXL</button>
+              {product.size && product.size.length > 0 && (
+                <div className="mb-5 mt-6 pb-5">
+                  <span className="mr-3 text-sm font-semibold">Size Chart</span>
+                  <div className="flex items-center gap-2 pt-2">
+                    {product.size.map((obj, index) => (
+                      <button
+                        key={index}
+                        className={`h-8 w-16 rounded-full border border-gray-300 focus:outline-none text-black ${selectedSize === obj ? 'bg-gray-300' : ''}`}
+                        onClick={() => setSelectedSize(obj)}
+                      >
+                        {obj}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* button */}
               <div className="flex items-center justify-center gap-10 border-b-2 border-gray-100 pb-5">
-              {cartItems.some((p) => p.id === product.id)
-                ?
-                <button
-                  onClick={() => navigate('/cart')}
-                  type="button"
-                  className="w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-              >
-                  Go to Cart
-                </button>
-                :
-                <button
-                onClick={() => addCart(product)}
-                  type="button"
-                  className="w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-              >
-                  Add to Cart
-                </button>
-              }
-                
+                {cartItems.some((p) => p.id === product.id) ? (
+                  <button
+                    onClick={() => navigate('/cart')}
+                    type="button"
+                    className="w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  >
+                    Go to Cart
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => addCart(product)}
+                    type="button"
+                    className="w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  >
+                    Add to Cart
+                  </button>
+                )}
+
                 <button
                   type="button"
                   className="w-[50%] rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   Add to Wishlist
                 </button>
-              </div>   
+              </div>
             </div>
           </>
-        }    
-        </section>
+        )}
+      </section>
     </Layout>
-  )
+  );
 }
 
-export default ProductInfo
+export default ProductInfo;

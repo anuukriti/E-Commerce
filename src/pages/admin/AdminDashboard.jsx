@@ -106,8 +106,8 @@ const AdminDashboard = () => {
 
                         {/* Total User  */}
                         <Tab className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
-                                <div className=" border bg-pink-50 hover:bg-pink-100 border-pink-100 px-4 py-3 rounded-xl" >
-                                    <div className="text-pink-500 w-12 h-12 mb-3 inline-block" >
+                                <div className=" border bg-[#EEEDEB] hover:bg-gray-100 border-gray-100 px-4 py-3 rounded-xl" >
+                                    <div className="text-black w-12 h-12 mb-3 inline-block" >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width={50}
@@ -126,8 +126,8 @@ const AdminDashboard = () => {
                                             <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                         </svg>
                                     </div>
-                                    <h2 className="title-font font-medium text-3xl text-pink-400 fonts1" >{getAllUser.length}</h2>
-                                    <p className=" text-pink-500  font-bold" >Total Order</p>
+                                    <h2 className="title-font font-medium text-3xl text-black fonts1" >{getAllUser.length}</h2>
+                                    <p className=" text-black  font-bold" >Total User</p>
                                 </div>
                             </Tab>
                     </TabList>

@@ -46,30 +46,29 @@ const UserDashboard = () => {
                             return (
                                 <div key={index}>
                                     {order.cartItems.map((item, index) => {
-                                        // console.log('item', item);
-                                        const { id, date, quantity, price, title, productImgUrl, category } = item
-                                        // console.log('order', order)
+                                        const { id, date, quantity, price, title, productImgUrl, category, selectedSize } = item
                                         const { status } = order
                                         return (
-                                            <div key={index} className="mt-5 flex flex-col overflow-hidden rounded-xl border border-pink-100 md:flex-row">
+                                            <div key={index} className="mt-5 flex flex-col overflow-hidden rounded-xl border border-gray-100 md:flex-row">
                                                 {/* main 3  */}
-                                                <div className="w-full border-r border-pink-100 bg-pink-50 md:max-w-xs">
+                                                <div className="w-full border-r border-gray-100 bg-gray-50 md:max-w-xs">
                                                     {/* left  */}
-                                                    <div className="p-8">
+                                                    <div className="p-6">
                                                         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-1">
-                                                            <div className="mb-4">
+                                                            <div className="mb-2">
                                                                 <div className="text-sm font-semibold text-black">Order Id</div>
                                                                 <div className="text-sm font-medium text-gray-900">#{id}</div>
                                                             </div>
-                                                            <div className="mb-4">
+                                                            <div className="mb-2">
                                                                 <div className="text-sm font-semibold">Date</div>
                                                                 <div className="text-sm font-medium text-gray-900">{date}</div>
                                                             </div>
-                                                            <div className="mb-4">
+                                                            <div className="mb-2">
                                                                 <div className="text-sm font-semibold">Total Amount</div>
                                                                 <div className="text-sm font-medium text-gray-900">₹ {price * quantity}</div>
                                                             </div>
-                                                            <div className="mb-4">
+                                                            
+                                                            <div className="mb-2">
                                                                 <div className="text-sm font-semibold">Order Status</div>                              
                                                                   <div className="text-sm font-medium text-green-800 first-letter:uppercase">{status}</div>
                                                             </div>
@@ -95,6 +94,8 @@ const UserDashboard = () => {
                                                                         <div className="flex-1">
                                                                             <p className="text-sm font-bold text-gray-900">{title}</p>
                                                                             <p className="mt-1.5 text-sm font-medium text-gray-500">{category}</p>
+                                                                            {selectedSize && <p className="mt-1.5 text-sm font-medium text-gray-500">size: {selectedSize}</p>}
+                                                                            
                                                                         </div>
                                                                         <p className="mt-4 text-sm font-medium text-gray-500">x {quantity}</p>
                                                                     </div>

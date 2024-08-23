@@ -2,31 +2,6 @@ import { useState, useContext } from "react";
 import {useNavigate} from "react-router-dom"
 import MyContext from "../../context/MyContext";
 
-// Search Data
-const searchData = [
-  {
-      name: 'Fashion'
-  },
-  {
-      name: 'Shirt'
-  },
-  {
-      name: 'Jacket'
-  },
-  {
-      name: 'Mobile'
-  },
-  {
-      name: 'Laptop'
-  },
-  {
-      name: 'Home'
-  },
-  {
-      name: 'book'
-  },
-]
-
 const Searchbar = () => {
     const { getAllProduct } = useContext(MyContext);
 
@@ -34,17 +9,24 @@ const Searchbar = () => {
     const [search, setSearch] = useState("");
 
     // Filter Search Data
-    const filterSearchData = getAllProduct.filter((obj) => obj.title.toLowerCase().includes(search)).slice(0, 8)
+    let filtersetdata = new Set();
+    getAllProduct.map((obj) => {
+        filtersetdata.add(obj.category+","+obj.subCategory);
+    })
+    let filterdata = Array.from(filtersetdata);
+
+    const filterSearchData = filterdata.filter((obj) => obj.includes(search)).slice(0, 8)
 
     const navigate = useNavigate();
 
   return (
     <div className="w-full">
-    {/* search input  */}
+    {/* search input */}
     <div className="input flex justify-center">
         <input
             type="text"
             placeholder='Search here'
+            value={search}
             onChange={(e) => setSearch(e.target.value)}
             className=' bg-gray-200 placeholder-gray-400 rounded-lg px-2 py-2 w-full outline-none text-black '
         />
@@ -56,10 +38,12 @@ const Searchbar = () => {
             {filterSearchData.length > 0 ?
                 <>
                     {filterSearchData.map((item, index) => {
+                        const cate = item.split(",")[0];
+                        const displayCate = item.split(",")[1];
                         return (
-                            <div key={index} className="py-2 px-2" onClick={() => navigate(`productinfo/${item.id}`)}>
+                            <div key={index} className="py-2 px-2" onClick={() => navigate(`category/${cate}`)}>
                                 <div className="flex items-center gap-2 text-black cursor-pointer">
-                                    {item.title}
+                                    {displayCate}
                                 </div>
                             </div>
                         )

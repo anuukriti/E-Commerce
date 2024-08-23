@@ -89,12 +89,13 @@ function MyState({children}) {
       getAllUserFunction();
     }, [])
 
-    const [filterType, setFilterType] = useState("All")
-    const [filterPrice, setFilterPrice] = useState("All")
+    const [filterType, setFilterType] = useState("Category")
+    const [filterPrice, setFilterPrice] = useState("Price")
+    const [filterGender, setFilterGender] = useState("Gender")
     
   return (
     <div>
-        <MyContext.Provider value={{loading, setLoading, getAllProduct, setGetAllProduct, getAllProductfunc, getAllOrder, setGetAllOrder, getAllOrderFunction, getAllUser, getAllUserFunction, filterType, setFilterType, filterPrice, setFilterPrice}}>
+        <MyContext.Provider value={{loading, setLoading, getAllProduct, setGetAllProduct, getAllProductfunc, getAllOrder, setGetAllOrder, getAllOrderFunction, getAllUser, getAllUserFunction, filterType, setFilterType, filterPrice, setFilterPrice, filterGender, setFilterGender}}>
             {children}
         </MyContext.Provider>
     </div>

@@ -15,7 +15,7 @@ import {Toaster} from 'react-hot-toast'
 import ProtectedRouteForUser from './protectedRoute/ProtectedRouteForUser'
 import ProtectedRouteForAdmin from './protectedRoute/ProtectedRouteForAdmin'
 import CategoryPage from './components/category/CategoryPage'
-import BuyNowModal from './components/buyNowModel/BuyNowModel'
+import Wishlist from './pages/wishlist/Wishlist'
 
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
           <Route path='/*' element={<Nopage/>} />
           <Route path='/productInfo/:id' element={<ProductInfo/>} />
           <Route path='/cart' element={<Cartpage/>} />
+          <Route path='/wishlist' element={<Wishlist/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/signup' element={<Signup/>} />
           <Route path='/Category/:categoryName' element={<CategoryPage/>} />

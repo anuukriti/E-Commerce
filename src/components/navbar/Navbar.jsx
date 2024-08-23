@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Searchbar from '../searchbar/Searchbar';
 import {useSelector} from 'react-redux'
+import logo from '../../assets/logo.png'
 
 const Navbar = () => {
     const user = JSON.parse(localStorage.getItem("users"));
@@ -61,20 +62,14 @@ const Navbar = () => {
       <nav className="sticky top-0 bg-whiteText z-50">
           {/* main  */}
           <div className="lg:flex items-center py-3 lg:px-3 w-full">
-              {/* left  */}
-              <div className="left py-3 lg:py-0">
-                  <Link to={'/'}>
-                  <h2 className=" font-bold text-darkText text-2xl text-center">Logo</h2>
-                  </Link>
+            {/* logo */}
+              <div className="left py-3 lg:py-0 w-full lg:w-auto">
+                  <Link to={'/'}><img src={logo}alt='logo' className='h-10 object-contain w-full items-center lg:w-auto'/></Link>
               </div>
-              {/* right  */}
               {/* Search Bar  */}
-              <div className='flex-1 lg:mx-20 mx-5'>
-                <Searchbar />
-              </div>
-              <div className="right flex justify-center mb-4 lg:mb-0">
-                  {navList}
-              </div>
+              <div className='flex-1 lg:mx-20 mx-5'><Searchbar /></div>
+              {/* Menu */}
+              <div className="right flex justify-center mb-2 lg:mb-0 mt-2">{navList}</div>
           </div>
       </nav>
   );
