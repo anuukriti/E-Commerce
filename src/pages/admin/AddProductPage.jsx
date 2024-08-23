@@ -13,7 +13,6 @@ const categoryList = [
   { name: 'footwear' },
   { name: 'kitchen' },
   { name: 'home' },
-  { name: 'toys' },
   { name: 'watch' },
   { name: 'cosmetics' },
   { name: 'jewellery' }
@@ -53,7 +52,7 @@ const AddProductPage = () => {
         }
 
         const categoryWithGenderOptions = ["fashion", "watch", "footwear", "jewellery"];
-        if (categoryWithGenderOptions.includes(product.category)) {
+        if (categoryWithGenderOptions.includes(product.category.toLowerCase())) {
             const sizes = product.size.split(',').map(size => size.trim());
 
             if (sizes.length === 0) {
@@ -82,99 +81,96 @@ const AddProductPage = () => {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-200">
+        <div className="flex justify-center items-center h-screen w-screen bg-gray-200 overflow-y-scroll">
             {loading && <Loader />}
-            <div className="login_Form bg-gray-50 px-10 py-10 border border-gray-100 rounded-xl shadow-lg">
-                <div className="mb-5">
-                    <h2 className='text-center text-2xl font-bold text-black py-6'>
-                        Add Product
-                    </h2>
-                </div>
+            <div className="bg-gray-50 px-6 pb-6 border border-gray-100 rounded-xl shadow-lg items-center justify-center w-full md:w-auto">
+                <h2 className='text-center text-lg md:text-2xl font-bold text-black py-6'>Add Product</h2>
 
-                <div className="mb-3 py-2 px-2">
-                    <input
-                        type="text"
-                        name="title"
-                        value={product.title}
-                        onChange={(e) => {
-                            setProduct({
-                                ...product,
-                                title: e.target.value,
-                            })
-                        }}
-                        placeholder='Product Title'
-                        className='bg-gray-50 text-black border border-gray-200 px-4 py-2 w-96 rounded-md outline-none placeholder-gray-400'
-                    />
-                </div>
+                <div className="flex flex-col gap-4 text-[12px] md:text-sm">
+                    <div>
+                        <input
+                            type="text"
+                            name="title"
+                            value={product.title}
+                            onChange={(e) => {
+                                setProduct({
+                                    ...product,
+                                    title: e.target.value,
+                                })
+                            }}
+                            placeholder='Product Title'
+                            className='bg-gray-50 text-black border border-gray-200 px-4 py-1 md:py-2 w-full md:w-96 rounded-md outline-none placeholder-gray-400'
+                        />
+                    </div>
 
-                <div className="mb-3 py-2 px-2">
-                    <input
-                        type="number"
-                        value={product.price}
-                        onChange={(e) => {
-                            setProduct({
-                                ...product,
-                                price: e.target.value,
-                            })
-                        }}
-                        placeholder='Product Price'
-                        className='bg-gray-50 text-black border border-gray-200 px-4 py-2 w-96 rounded-md outline-none placeholder-gray-400'
-                    />
-                </div>
+                    <div>
+                        <input
+                            type="number"
+                            value={product.price}
+                            onChange={(e) => {
+                                setProduct({
+                                    ...product,
+                                    price: e.target.value,
+                                })
+                            }}
+                            placeholder='Product Price'
+                            className='bg-gray-50 text-black border border-gray-200 px-4 py-1 md:py-2 w-full md:w-96 rounded-md outline-none placeholder-gray-400'
+                        />
+                    </div>
 
-                <div className="mb-3 py-2 px-2">
-                    <input
-                        type="text"
-                        value={product.productImgUrl}
-                        onChange={(e) => {
-                            setProduct({
-                                ...product,
-                                productImgUrl: e.target.value,
-                            })
-                        }}
-                        placeholder='Product Image Url'
-                        className='bg-gray-50 text-black border border-gray-200 px-4 py-2 w-96 rounded-md outline-none placeholder-gray-400'
-                    />
-                </div>
+                    <div>
+                        <input
+                            type="text"
+                            value={product.productImgUrl}
+                            onChange={(e) => {
+                                setProduct({
+                                    ...product,
+                                    productImgUrl: e.target.value,
+                                })
+                            }}
+                            placeholder='Product Image Url'
+                            className='bg-gray-50 text-black border border-gray-200 px-4 py-1 md:py-2 w-full md:w-96 rounded-md outline-none placeholder-gray-400'
+                        />
+                    </div>
 
-                <div className="mb-3 py-2 px-2">
-                    <select 
-                        value={product.category}
-                        onChange={(e) => {
-                            setProduct({
-                                ...product,
-                                category: e.target.value,
-                            });
-                        }}
-                        className="w-full px-2 py-2 text-black bg-gray-50 border border-gray-200 rounded-md outline-none">
-                        <option>Select Product Category</option>
-                        {categoryList.map((value, index) => {
-                            const { name } = value;
-                            return (
-                                <option className=" first-letter:uppercase" key={index} value={name}>{name}</option>
-                            )
-                        })}
-                    </select>
-                </div>
+                    <div>
+                        <select 
+                            value={product.category.toLowerCase()}
+                            onChange={(e) => {
+                                setProduct({
+                                    ...product,
+                                    category: e.target.value,
+                                });
+                            }}
+                            className="w-full px-2 py-1 md:py-2 text-black bg-gray-50 border border-gray-200 rounded-md outline-none">
+                            <option>Select Product Category</option>
+                            {categoryList.map((value, index) => {
+                                const { name } = value;
+                                return (
+                                    <option className=" first-letter:uppercase" key={index} value={name}>{name}</option>
+                                )
+                            })}
+                        </select>
+                    </div>
 
-                <div className="mb-3 py-2 px-2">
-                    <input
-                        type="text"
-                        value={product.subCategory}
-                        onChange={(e) => {
-                            setProduct({
-                                ...product,
-                                subCategory: e.target.value,
-                            })
-                        }}
-                        placeholder='Sub Category'
-                        className='bg-gray-50 text-black border border-gray-200 px-4 py-2 w-96 rounded-md outline-none placeholder-gray-400'
-                    />
-                </div>
+                    <div>
+                        <input
+                            type="text"
+                            value={product.subCategory}
+                            onChange={(e) => {
+                                setProduct({
+                                    ...product,
+                                    subCategory: e.target.value,
+                                })
+                            }}
+                            placeholder='Sub Category'
+                            className='bg-gray-50 text-black border border-gray-200 px-4 py-1 md:py-2 w-full md:w-96 rounded-md outline-none placeholder-gray-400'
+                        />
+                    </div>
 
-                {["Fashion", "Watch", "Footwear", "Kids", "Jewellery"].includes(product.category) && (
+                {["fashion", "watch", "footwear", "kids", "jewellery"].includes(product.category.toLowerCase()) && (
                     <>
-                        <div className="mb-3 py-2 px-2">
+                        <div>
                             <select
                                 value={product.gender}
                                 onChange={(e) => {
@@ -183,7 +179,7 @@ const AddProductPage = () => {
                                         gender: e.target.value,
                                     });
                                 }}
-                                className="w-full px-2 py-2 text-black bg-gray-50 border border-gray-200 rounded-md outline-none">
+                                className="w-full px-2 py-1 md:py-2 text-black bg-gray-50 border border-gray-200 rounded-md outline-none">
                                 <option disabled>Select Gender</option>
                                 {genderList.map((gender, index) => (
                                     <option key={index} value={gender}>{gender}</option>
@@ -192,9 +188,9 @@ const AddProductPage = () => {
                         </div>
                         </>
                 )}
-                {["Fashion", "Footwear"].includes(product.category) && (
+                {["fashion", "footwear"].includes(product.category.toLowerCase()) && (
                     <>
-                        <div className="mb-3 py-2 px-2">
+                        <div>
                             <input
                                 type="text"
                                 value={product.size}
@@ -205,14 +201,14 @@ const AddProductPage = () => {
                                     })
                                 }}
                                 placeholder='Product Sizes (e.g., S, M, L, XL)'
-                                className='bg-gray-50 text-black border border-gray-200 px-4 py-2 w-96 rounded-md outline-none placeholder-gray-400'
+                                className='bg-gray-50 text-black border border-gray-200 px-4 py-1 md:py-2 w-full md:w-96 rounded-md outline-none placeholder-gray-400'
                             />
                         </div>
 
                     </>
                 )}
 
-                <div className="mb-3 py-2 px-2">
+                <div>
                     <textarea 
                         value={product.description}
                         onChange={(e) => {
@@ -227,14 +223,14 @@ const AddProductPage = () => {
                         className=" w-full px-4 py-1 text-black bg-gray-50 border border-gray-200 rounded-md outline-none placeholder-gray-300">
                     </textarea>
                 </div>
-
-                <div className="mb-3 py-2 px-2">
-                    <button
-                        type='button'
-                        onClick={addProductFunction}
-                        className='bg-gray-500 hover:bg-gray-600 w-full text-white text-center py-2 font-bold rounded-md'>
-                        Add Product
-                    </button>
+                    <div>
+                        <button
+                            type='button'
+                            onClick={addProductFunction}
+                            className='bg-gray-500 hover:bg-gray-600 w-full text-white text-center py-1 md:py-2 font-bold rounded-md'>
+                            Add Product
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

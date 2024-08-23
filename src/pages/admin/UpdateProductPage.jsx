@@ -13,7 +13,6 @@ const categoryList = [
   { name: 'footwear' },
   { name: 'kitchen' },
   { name: 'home' },
-  { name: 'toys' },
   { name: 'watch' },
   { name: 'cosmetics' },
   { name: 'jewellery' }
@@ -148,7 +147,7 @@ const UpdateProductPage = () => {
 
           <div className="mb-3">
             <select
-              value={product.category}
+              value={product.category.toLowerCase()}
               onChange={(e) => {
                 setProduct({
                   ...product,
@@ -182,7 +181,7 @@ const UpdateProductPage = () => {
             />
           </div>
 
-          {["fashion", "footwear"].includes(product.category) && (
+          {["fashion", "footwear"].includes(product.category.toLowerCase()) && (
             <>
             <div className="mb-3">
               <input
@@ -202,7 +201,7 @@ const UpdateProductPage = () => {
             </>
           )}
 
-          {["fashion", "watch", "footwear", "kids", "jewellery"].includes(product.category) && (
+          {["fashion", "watch", "footwear", "kids", "jewellery"].includes(product.category.toLowerCase()) && (
             <>
             <div className="mb-3">
               <select
